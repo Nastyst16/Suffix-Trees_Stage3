@@ -28,10 +28,7 @@
 ; pentru tipul text (pentru că în etapa 2 ați implementat
 ; construcția arborelui de sufixe asociat unui text).
 (define (substring? text pattern)
-
-  (st-has-pattern? (text->ast text) pattern)
-
-  )
+  'your-code-here)
 
 
 ; TODO 2
@@ -51,23 +48,6 @@
 ; șirului comun cu acest caracter.
 ; Hint: Revizitați funcția match-pattern-with-label (etapa 1).
 (define (longest-common-substring text1 text2)
-
-  (let* ((st-text1 (filter (lambda (x) (not (equal? x '(#\$)))) (text->ast text1)))
-         (suffixes-text2 (get-suffixes text2))
-   
-         
-         
-         )
-    (display st-text1)
-    (newline)
-
-    (display suffixes-text2)
-    (newline)
-    
-    )
-
-
-  
   'your-code-here)
 
 
@@ -89,13 +69,3 @@
 ; atunci când manipulați arborele.
 (define (repeated-substring-of-given-length text len)
   'your-code-here)
-
-
-
-
-  
-
-
-
-
-
