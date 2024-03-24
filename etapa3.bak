@@ -52,26 +52,23 @@
 ; Hint: Revizitați funcția match-pattern-with-label (etapa 1).
 (define (longest-common-substring text1 text2)
 
-  (let ((st-text1 (text->ast text1))
+  (let* ((st-text1 (filter (lambda (x) (not (equal? x '(#\$)))) (text->ast text1)))
          (suffixes-text2 (get-suffixes text2))
+   
+         
+         
          )
+    (display st-text1)
+    (newline)
 
-    (let iter ((st st-text1) (suffixes suffixes-text2) (rez '()))
-    (cond
-      ((null? suffixes) rez)
-      ((< (length rez) (length(helper-builder st (car suffixes)))) (iter st (cdr suffixes) (helper-builder st (car suffixes))))
-      (else (iter st (cdr suffixes) rez)))
-      )
+    (display suffixes-text2)
+    (newline)
+    
     )
-  )
 
-(define (helper-builder st suffix)
 
-  (if (st-has-pattern? st suffix)
-      suffix
-      (helper-builder st (drop-right suffix 1))
-      )
-  )
+  
+  'your-code-here)
 
 
 ; TODO 3
