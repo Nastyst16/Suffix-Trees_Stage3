@@ -73,7 +73,7 @@
       )
   )
 
-
+(define input-list (string->list "xabxabxaaxbbxabxabxaaxbb"))
 ; TODO 3
 ; Implementați funcția repeated-substring-of-given-length
 ; care primește un text și un număr natural len și
@@ -91,7 +91,223 @@
 ; Folosiți interfața definită în fișierul suffix-tree
 ; atunci când manipulați arborele.
 (define (repeated-substring-of-given-length text len)
-  'your-code-here)
+
+  (let* ((st (text->cst text))
+         )
+
+    (helper-calling-by-every-branch st len '())
+    
+    )
+
+    
+
+  )
+
+
+(define (helper-calling-by-every-branch st len rez)
+
+  ;(display (list 'aici: st))
+  ;(newline)
+
+  (cond
+    ((null? st) '())
+    ((null? (first-branch st)) '()) ; nodul este o frunza;
+    ((null? (other-branches st)) '())
+      
+    (else
+
+     ;(display (list 'eticheta: (get-branch-label (first-branch st))))
+     ;(newline)
+     
+     (helper-for-each-branch (first-branch st) len rez)
+     (helper-calling-by-every-branch (other-branches st) len rez)
+     
+     )
+
+
+    )
+
+
+  
+
+  )
+
+
+
+(define (helper-for-each-branch st len substring)
+
+  ;(display (list 'aici: st))
+  ;(display (list 'st: st))
+
+  (display (list 'substring: substring))
+  (newline)
+
+  (cond 
+      ((null? st) '() )
+      ((pair? (first-branch st)) '()) ; suntem pe frunza
+
+      (else
+
+       (let* ((label-root (get-branch-label st))
+              )
+
+
+         (append substring label-root)
+
+         (display substring) (newline)
+
+         (if (>= (length substring) len)
+             (take substring len)
+             (helper-calling-by-every-branch st len substring)
+             )
+    
+
+    
+         )
+       )
+      )
+  
+  
+  
+
+  )
+
+         
+
+              
+
+(define tree
+  '(((#\$))
+  ((#\a)
+   ((#\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))
+   ((#\b #\x #\a)
+    ((#\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))
+    ((#\b #\x #\a #\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$))))
+   ((#\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$))))
+  ((#\b)
+   ((#\$))
+   ((#\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))
+   ((#\x #\a)
+    ((#\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))
+    ((#\b #\x #\a)
+     ((#\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))
+     ((#\b #\x #\a #\a #\x #\b #\b #\$)))))
+  ((#\x)
+   ((#\a)
+    ((#\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))
+    ((#\b #\x #\a)
+     ((#\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))
+     ((#\b #\x #\a #\a #\x #\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))))
+   ((#\b #\b) ((#\$)) ((#\x #\a #\b #\x #\a #\b #\x #\a #\a #\x #\b #\b #\$)))))
+  )
+
+
+#|
+    (if (equal? label-root '(#\$))
+        '()
+        (let ((rest-of-len (let iter ((len len) (word label-root) (rez '()))
+                             (if (null? word)
+                                 rez
+                                 (iter (- len 1) (cdr word) (append rez (car word)))
+                                 )
+                             )
+                           )
+              )
+          (display (list 'r-o-l: rest-of-len))
+          (newline)
+
+          (helper-calling-by-every-branch (first-branch st) len rest-of-len)
+          
+          )
+        
+        
+        )
+    |#
+         
+
+
+
+
+
+
+#|
+(let* ((suffix-tree (text->cst text))
+         ;(rez
+         )
+
+    suffix-tree
+
+    ;(display (list 'afisare: (other-branches suffix-tree)))
+    ;(newline)
+    
+
+    (define rez
+      (let preorder-transversal ((suffix-tree suffix-tree) (len len))
+        (cond
+          ((null? tree) '())
+          ((null? (first-branch suffix-tree)) '()) ; e frunza: nu fac nimic
+          (else
+           (let ((root (first-branch suffix-tree))
+                 (branches (other-branches suffix-tree))
+                 (result '()))
+
+             (append (list root)
+                     (apply append (map (lambda (branch) (preorder-transversal branch len) branches)))
+                     )
+             )
+           )
+          )
+        )
+      )
+
+    (display rez)
+    rez
+    
+    )
+    
+
+    
+
+
+
+    
+    (let iter ((st suffix-tree) (len len) (rez '()))
+      (cond
+        ((null? (other-branches st)) 'aici)
+        ((>= (length (get-branch-label (first-branch st))) len)
+         (continueing-the-searching-after-substring-found (get-branch-label (first-branch))))
+
+
+        ;daca mai are copii intram in copii
+        ((not (null? (first-branch st))) (iter (first-branch st) len rez))
+        
+        (else
+
+
+         (display (list 'oth-br (other-branches st))) (newline)
+
+                  
+         (iter (other-branches st) len rez))
+
+        )
+      )
+    |#
+
+      
+
+;(repeated-substring-of-given-length input-list 10)
+
+
+(define (continueing-the-searching-after-substring-found substring)
+
+  '()
+
+
+
+  )
+
+
+
 
 
 
