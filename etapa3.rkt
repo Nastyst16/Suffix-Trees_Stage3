@@ -110,25 +110,27 @@
   ;(newline)
 
   (cond
-    ((null? st) '())
-    ((null? (first-branch st)) '()) ; nodul este o frunza;
-    ((null? (other-branches st)) '())
+    ((st-empty? st) '())
+    ((not (list? (first-branch st))) (helper-calling-by-every-branch (other-branches st) len rez)) ; nodul este o frunza;
+    ;((null? (other-branches st)) '())
       
     (else
 
      ;(display (list 'eticheta: (get-branch-label (first-branch st))))
      ;(newline)
-     
-     (helper-for-each-branch (first-branch st) len rez)
-     (helper-calling-by-every-branch (other-branches st) len rez)
-     
-     )
 
+     (let ((substring-found (helper-for-each-branch (first-branch st) len rez)))
+
+       (if (= (length substring-found) len)
+           (take substring len)
+           (helper-calling-by-every-branch (other-branches st) len rez)
+           )
+       )
+     )
+     
 
     )
 
-
-  
 
   )
 
@@ -142,26 +144,23 @@
   (display (list 'substring: substring))
   (newline)
 
+  
   (cond 
       ((null? st) '() )
-      ((pair? (first-branch st)) '()) ; suntem pe frunza
+      ((not (list? st)) (helper-calling-by-every-branch st len substring)) ; suntem pe frunza
 
       (else
 
        (let* ((label-root (get-branch-label st))
+              (appended-substring (append substring label-root))
               )
 
+         (display (list 'ap-substr: appended-substring))
 
-         (append substring label-root)
 
-         (display substring) (newline)
+         
 
-         (if (>= (length substring) len)
-             (take substring len)
-             (helper-calling-by-every-branch st len substring)
-             )
-    
-
+         appended-substring
     
          )
        )
