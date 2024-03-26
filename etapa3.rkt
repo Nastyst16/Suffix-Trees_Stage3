@@ -106,25 +106,29 @@
 
 (define (helper-calling-by-every-branch st len rez)
 
-  (cond
-    ((st-empty? st) '())
-    ; conditie pentru eficienta
-    ((not (list? (first-branch st))) (helper-calling-by-every-branch (other-branches st) len rez)) ; nodul este o frunza;
+  (let ((other-branches (other-branches st))
+        (first-branch (first-branch st))
+        )
+
+    (cond
+      ((st-empty? st) '())
+      ; conditie pentru eficienta
+      ((not (list? first-branch)) (helper-calling-by-every-branch other-branches len rez)) ; nodul este o frunza;
       
-    (else
+      (else
 
-     (let ((substring-found (helper-for-each-branch (first-branch st) len rez)))
+       (let ((substring-found (helper-for-each-branch first-branch len rez)))
 
-       (if (>= (length substring-found) len)
-           (take substring-found len)
-           (helper-calling-by-every-branch (other-branches st) len rez)
-           )
-       )
+         (if (>= (length substring-found) len)
+             (take substring-found len)
+             (helper-calling-by-every-branch other-branches len rez)
+             )
+         )
      
-     )
+       )
     
+      )
     )
-  
   )
 
 (define (helper-for-each-branch st len substring)
