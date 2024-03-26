@@ -93,13 +93,15 @@
 (define (repeated-substring-of-given-length text len)
 
   (let* ((st (text->cst text))
+         (rez (helper-calling-by-every-branch st len '()))
          )
 
-    (helper-calling-by-every-branch st len '())
+    (if (null? rez)
+        #f
+        rez
+        )
     
     )
-
-    
 
   )
 
@@ -121,33 +123,34 @@
 
      (let ((substring-found (helper-for-each-branch (first-branch st) len rez)))
 
-       (if (= (length substring-found) len)
-           (take substring len)
+       (if (>= (length substring-found) len)
+           (take substring-found len)
            (helper-calling-by-every-branch (other-branches st) len rez)
            )
        )
+     
      )
      
 
     )
 
-
+  
   )
-
-
 
 (define (helper-for-each-branch st len substring)
 
   ;(display (list 'aici: st))
   ;(display (list 'st: st))
 
-  (display (list 'substring: substring))
-  (newline)
+  ;(display (list 'substring: substring))
+  ;(newline)
 
   
   (cond 
-      ((null? st) '() )
-      ((not (list? st)) (helper-calling-by-every-branch st len substring)) ; suntem pe frunza
+      ((null? st) substring )
+      ((not (list? (car st))) substring ) ; suntem pe frunza
+      ((null? (other-branches st)) substring ) ; suntem pe frunza
+      ((and (pair? st) (= (length st) 1)) substring)
 
       (else
 
@@ -155,12 +158,18 @@
               (appended-substring (append substring label-root))
               )
 
-         (display (list 'ap-substr: appended-substring))
+         ;(display (list 'ap-substr: appended-substring))
+         ;(display (length appended-substring))
+         ;(display len)
 
 
+         (if (>= (length appended-substring) len)
+             appended-substring
+             (helper-calling-by-every-branch st len appended-substring)
+             )
          
-
-         appended-substring
+         
+         ;appended-substring
     
          )
        )
@@ -170,6 +179,9 @@
   
 
   )
+
+; (repeated-substring-of-given-length input-list 10) is '(#\a #\b #\x #\a #\b #\x #\a #\a #\x #\b))
+
 
          
 
